@@ -7,12 +7,14 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+  reloj.actualizar();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+  cout << "reloj.getDeltaMillis() = " << reloj.getDeltaMillis() << endl;
+  ofSetColor( 0, 0, 255 );
+  ofDrawBitmapString( "deltaMillis: " + std::to_string( reloj.getDeltaMillis() ), 10, 30 );
 }
 
 //--------------------------------------------------------------
@@ -66,6 +68,6 @@ void ofApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
+void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
