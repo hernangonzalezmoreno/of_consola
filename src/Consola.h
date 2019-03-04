@@ -13,9 +13,9 @@ class Consola{
     //geters and seters
     //proximamente..
     void println( string texto );
-    /*void printlnAlerta( string alerta );
-    void printlnAlerta( string alerta, ofColor colorPersonalizado );
-    void printlnError( string alerta );*/
+    void printlnAlerta( string );
+    void printlnAlerta( string, ofColor );
+    void printlnError( string alerta );
     void ejecutar();
 
   private:
@@ -23,7 +23,6 @@ class Consola{
     //ofApp *app;
     Reloj *reloj;
     string texto;
-    //private ArrayList<Alerta> alertas = new ArrayList<Alerta>();
     ofColor colorTexto, colorAlerta;
     int tamanoTexto, tamanoAlerta;
     bool debug;
@@ -31,7 +30,38 @@ class Consola{
     //METODOS
     void ejecutarDebug();
     void ejecutarNoDebug();
+    void imprimirAlertas( bool );
     ofRectangle getBitmapStringBoundingBox( string );
+
+    class Alerta{
+      public:
+        Alerta();
+        Alerta(string _alerta);
+        Alerta( string _alerta, ofColor _colorPersonalizado );
+        ~Alerta();
+        string getAlerta();
+        uint8_t getEstado();
+        int getTiempo();
+        bool isPersonalizado();
+        ofColor getColorPersonalizado();
+        void ejecutar( Reloj *reloj );
+        static const uint8_t
+        ESTADO_MOSTRAR = 0x00,
+        ESTADO_DESAPARECER = 0x01,
+        ESTADO_ELIMINAR = 0x02;
+        static const int
+        TIEMPO_MOSTRAR = 5000,
+        TIEMPO_DESAPARECER = 2000;
+      private:
+        string alerta;
+        ofColor colorPersonalizado;
+        bool personalizado;
+        uint8_t estado;
+        int tiempo;
+    };
+
+    vector<Alerta> alertas;
+    //private ArrayList<Alerta> alertas = new ArrayList<Alerta>();
 
 };
 
