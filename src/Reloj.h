@@ -9,12 +9,11 @@ class Reloj{
     Reloj();//constructor
     void actualizar();
     int getDeltaMillis();
+    string hola;
 
   private:
     //variables
-    int millisActual;
-    int millisAnterior;
-    int deltaMillis;
+    int millisActual, millisAnterior, deltaMillis;
 };
 
 #endif

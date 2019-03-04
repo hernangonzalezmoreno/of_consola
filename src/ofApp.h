@@ -3,9 +3,11 @@
 #include "ofMain.h"
 #include <string>
 #include "Reloj.h"
+#include "Consola.h"
 
 class ofApp : public ofBaseApp{
 	public:
+		ofApp();
 		void setup();
 		void update();
 		void draw();
@@ -24,5 +26,6 @@ class ofApp : public ofBaseApp{
 
 		//Mis objetos
 		Reloj reloj;
+		Consola consola;
 
 };

@@ -1,20 +1,35 @@
 #include "ofApp.h"
 
+ofApp::ofApp(){
+  //reloj = new Reloj();
+  //consola = new Consola( reloj );
+}
+
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+  consola.setup( &reloj );
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
   reloj.actualizar();
+  consola.println( "Hola mundo" );
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-  cout << "reloj.getDeltaMillis() = " << reloj.getDeltaMillis() << endl;
-  ofSetColor( 0, 0, 255 );
-  ofDrawBitmapString( "deltaMillis: " + std::to_string( reloj.getDeltaMillis() ), 10, 30 );
+  //cout << "reloj.getDeltaMillis() = " << reloj.getDeltaMillis() << endl;
+  //ofSetColor( 0, 0, 255 );
+  //ofDrawBitmapString( "deltaMillis: " + std::to_string( reloj.getDeltaMillis() ), 10, 30 );
+  consola.test();
+  consola.println( "Estoy en el draw" );
+  consola.println( reloj.hola );
+  consola.println( "mouseY: " + ofToString( ofGetMouseY() ) );
+  consola.ejecutar();
+  cout << "fps: " << ofToString(ofGetFrameRate(),2) << endl;
+
+  ofSetColor( 224, 50, 50 );
+  ofDrawRectangle( ofGetMouseX(), ofGetMouseY(), 100, 100 );
 }
 
 //--------------------------------------------------------------

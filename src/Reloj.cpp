@@ -1,6 +1,6 @@
 #include "Reloj.h"
 
-Reloj::Reloj(){}
+Reloj::Reloj(){ hola = "que tal"; }
 
 void Reloj::actualizar(){
   millisAnterior = millisActual;
