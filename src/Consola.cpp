@@ -9,15 +9,6 @@ void Consola::setup( Reloj *_reloj ){
   tamanoAlerta = 14;
 }
 
-void Consola::test(){
-  //std::cout << "LEADIN" << '\n';
-  //cout << LEADIN << endl;
-  //cout << debug << endl;
-  //cout << getFps() << endl;
-  println( "deltaMillis: " + std::to_string( reloj->getDeltaMillis() ) );
-  reloj->hola = "nuevo valor";
-}
-
 void Consola::println( string _texto ){
   texto += _texto + "\n";
 }
@@ -36,7 +27,7 @@ void Consola::printlnAlerta( string _alerta, ofColor col ){
 
 void Consola::printlnError( string _alerta ){
   //Creo un Alerta y paso la referencia al vector alertas
-  alertas.push_back( *new Alerta( _alerta, ofColor( 0xFF0000 ) ) );
+  alertas.push_back( *new Alerta( _alerta, ofColor( 255, 0, 0 ) ) );
   cout << _alerta << endl;
 }
 
@@ -96,7 +87,8 @@ void Consola::ejecutarNoDebug(){
 
 void Consola::imprimirAlertas( bool _debugAlertas ){
   //float posY = tamanoAlerta + tamanoAlerta * (LEADIN * 0.16666666) ;//0.25
-  float posY = 14.0;
+  //float posY = 14.0;
+  float posY = (float) tamanoAlerta;
 
   cout << "cantidad de alertas: " << alertas.size() << endl;
   for( int i = alertas.size() - 1; i >= 0; i-- ){
@@ -125,8 +117,8 @@ void Consola::imprimirAlertas( bool _debugAlertas ){
         ofSetColor( 0, ofMap( a->getTiempo(), 0, Alerta::TIEMPO_DESAPARECER, 255, 0 ) );
 
       ofRectangle boundingBox = getBitmapStringBoundingBox( a->getAlerta() );
-      ofDrawRectangle( 300, posY - tamanoAlerta, boundingBox.getWidth(), 14 );//14 definido literal, porque boundingBox.getHeight() no anda exactamente como lo esperado
-
+      //ofDrawRectangle( ofGetWidth() - boundingBox.getWidth(), posY - tamanoAlerta, boundingBox.getWidth(), tamanoAlerta );// definido altura con tamanoAlerta, porque boundingBox.getHeight() no anda exactamente como lo esperado
+      ofDrawRectangle( ofGetWidth() - boundingBox.getWidth() - 5, posY - tamanoAlerta * ( LEADIN * 0.875 ), boundingBox.getWidth() + 5, tamanoAlerta * LEADIN );
       //------
 
       ofColor auxColorAlerta = ( a->isPersonalizado() ) ? a->getColorPersonalizado() : colorAlerta ;
@@ -135,13 +127,14 @@ void Consola::imprimirAlertas( bool _debugAlertas ){
       else
         ofSetColor( auxColorAlerta, ofMap( a->getTiempo(), 0, Alerta::TIEMPO_DESAPARECER, 255, 0 ) );
 
-      ofDrawBitmapString( a->getAlerta(), 300, posY );
-      posY += tamanoAlerta;
+      ofDrawBitmapString( a->getAlerta(), ofGetWidth() - boundingBox.getWidth(), posY - 2 );
+      // posY += tamanoAlerta;
+      posY += tamanoAlerta * LEADIN;
 
-      // if( posY > height && i - 1 >= 0 ){
-      //   removerAlertasFueraDePantalla( i - 1 );
-      //   return;
-      // }
+      if( posY > ofGetHeight() && i - 1 >= 0 ){
+        removerAlertasFueraDePantalla( i - 1 );
+        return;
+      }
 
     }
 
@@ -186,6 +179,11 @@ void Consola::imprimirAlertas( bool _debugAlertas ){
 
     }//end for
   */
+}
+
+void Consola::removerAlertasFueraDePantalla( int desde ){
+  for( int i = desde; i >= 0; i-- )
+    alertas.erase( alertas.begin() + i );
 }
 
 //Como no cargue ninguna fuente(tipografia) debo utilizar este metodo para saber el ancho de la cadena
@@ -263,6 +261,7 @@ private void ejecutarNoDebug(){
 Consola::Alerta::Alerta(){
   estado = ESTADO_MOSTRAR;
   tiempo = 0;
+  personalizado = false;
 }
 
 Consola::Alerta::Alerta( string _alerta ) : Alerta(){

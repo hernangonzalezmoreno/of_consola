@@ -9,7 +9,6 @@ class Reloj{
     Reloj();//constructor
     void actualizar();
     int getDeltaMillis();
-    string hola;
 
   private:
     //variables

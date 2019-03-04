@@ -9,7 +9,6 @@
 class Consola{
   public:
     void setup( Reloj *_reloj );
-    void test();
     //geters and seters
     //proximamente..
     void println( string texto );
@@ -31,6 +30,7 @@ class Consola{
     void ejecutarDebug();
     void ejecutarNoDebug();
     void imprimirAlertas( bool );
+    void removerAlertasFueraDePantalla( int );
     ofRectangle getBitmapStringBoundingBox( string );
 
     class Alerta{

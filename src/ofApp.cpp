@@ -1,13 +1,11 @@
 #include "ofApp.h"
 
-ofApp::ofApp(){
-  //reloj = new Reloj();
-  //consola = new Consola( reloj );
-}
-
 //--------------------------------------------------------------
 void ofApp::setup(){
   consola.setup( &reloj );
+  //El background en OF es automatico al menos que se diga lo contrario
+  //ofSetBackgroundAuto( false );//desactivar y activar back automatico
+  ofBackground( 0x222222 );//puedo establecer de que color quiero que sea el back
 }
 
 //--------------------------------------------------------------
@@ -25,9 +23,7 @@ void ofApp::draw(){
   ofSetColor( 224, 50, 50 );
   ofDrawRectangle( ofGetMouseX(), ofGetMouseY(), 100, 100 );
 
-  consola.test();
   consola.println( "Estoy en el draw" );
-  consola.println( reloj.hola );
   consola.println( "mouseY: " + ofToString( ofGetMouseY() ) );
   consola.ejecutar();
 }
@@ -54,7 +50,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+  consola.printlnError( "Click mouse" );
 }
 
 //--------------------------------------------------------------
